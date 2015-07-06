@@ -33,7 +33,7 @@ then
       	touch /tmp/pipingfail.state
       fi
 else
-   # Up - Send up notification if previously down, otherwise do nothing
+   # Up - Send up notification if previously down, otherwise check for incoming messages
       if [ -f /tmp/pipingfail.state ]
       then
       	mailx -s "Up: PiAware is back UP" "$NOTIFYEMAIL" < /dev/null
