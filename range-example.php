@@ -1,9 +1,26 @@
 <?php
+/*  Copyright 2015  Andrew Hill  (email : andy@hillhome.org)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
 echo '<html>
 <head>
 <title>Receiver Range Plot</title>';
 
-$data = file_get_contents("/srv/www/htdocs/flights/range.json");
+$data = file_get_contents("/srv/www/htdocs/range.json");
 $data = json_decode($data, true); 
 
 $polarplots1 = $data["PolarPlotSlices"][1]["PolarPlots"];
@@ -13,10 +30,6 @@ $polarplots4 = $data["PolarPlotSlices"][4]["PolarPlots"];
 
 echo '
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"></link>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="bootstrap-select.min.js"></script>
-<script src="script.js"></script>
-<link href="bootstrap-select.min.css" rel="stylesheet"></link>
 <link rel="stylesheet" href="range.css">
 <script src="http://maps.googleapis.com/maps/api/js"></script>
 <script>
