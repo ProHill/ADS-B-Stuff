@@ -1,26 +1,9 @@
 <?php
-/*  Copyright 2015  Andrew Hill  (email : andy@hillhome.org)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-
 echo '<html>
 <head>
 <title>Receiver Range Plot</title>';
 
-$data = file_get_contents("/srv/www/htdocs/range.json");
+$data = file_get_contents("/srv/www/htdocs/flights/range.json");
 $data = json_decode($data, true); 
 
 $polarplots1 = $data["PolarPlotSlices"][1]["PolarPlots"];
@@ -35,6 +18,7 @@ echo '
 <script>
   function initialize() {
 	var center = new google.maps.LatLng(41.895,-89.000); //center of map
+	var rangecenter = new google.maps.LatLng(41.7184472,-88.2819623); //center of range rings
 	var mapOptions = {
 	  zoom: 6,
 	  center: center,
@@ -119,11 +103,28 @@ rangePolygon4 = new google.maps.Polygon({
     fillColor: "#FF0000",
     fillOpacity: 0.2
   });
-	rangePolygon4.setMap(map);		
+	rangePolygon4.setMap(map);
+
+var rangeRings = [92600, 185200, 277800, 370400, 463000, 555600];
+var index;
+for	(index = 0; index < rangeRings.length; index++) {
+    var rangeOptions = {
+      strokeColor: "#000000",
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillOpacity: 0.0,
+      map: map,
+      center: rangecenter,
+      radius: rangeRings[index]
+	 };
+	 rangeCircle = new google.maps.Circle(rangeOptions);
+}
+
 
 map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
   document.getElementById("legend"));
-  }
+
+}
 
 google.maps.event.addDomListener(window, "load", initialize);
 </script>
@@ -134,12 +135,13 @@ google.maps.event.addDomListener(window, "load", initialize);
 <div id="range-map"></div>
 </section>
 <div id="legend">
-<table style="width: 200;">
+<table style="width: 225;">
 <tr><th style="width: 25;">Color</th><th style="width: 200; text-align: right;">Altitude</th></tr>
 <tr><td style="background-color: white; opacity: 0.4; width: 25;"></td><td style="width: 200; text-align: right;">0 - 9999 ft</td></tr>
 <tr><td style="background-color: green; opacity: 0.4; width: 25;"></td><td style="width: 200; text-align: right;">10,000 - 19,999 ft</td></tr>
 <tr><td style="background-color: blue; opacity: 0.4; width: 25;"></td><td style="width: 200; text-align: right;">20,000 - 29,999 ft</td></tr>
 <tr><td style="background-color: red; opacity: 0.4; width: 25;"></td><td style="width: 200; text-align: right;">30,000+ ft</td></tr>
+<tr><td colspan="2" style="text-align: center;"><font size="-1">Range rings are at 50 NM intervals</font></td></tr>
 </table>
 </div>
 </body>
