@@ -1,0 +1,26 @@
+body{
+  background-color:#fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:14px;
+  font-weight:400;
+  padding-top:70px;
+}
+
+#legend {
+    background: white;
+    opacity: 0.8;
+    padding: 10px;
+  }
+
+#range-map{
+	width: 100%;
+	height: 600px;	
+}
+
+.container{
+  padding-top:30px;
+  padding-bottom: 15px;
+  padding-left:0px;
+  padding-right:0px;
+}
+
